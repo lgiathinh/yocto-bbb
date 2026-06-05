@@ -1,0 +1,2 @@
+1. module device driver trong linux là gì?
+- Đuôi .ko
