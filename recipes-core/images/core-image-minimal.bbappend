@@ -7,17 +7,49 @@ EXTRA_USERS_PARAMS = "\
     usermod -p '${PASSWD}' root; \
     "
 
-#USB WiFi package
+IMAGE_INSTALL:append = "custom-banner"
+
+# Resize rootfs to 200MB, max size 2GB
+# IMAGE_OVERHEAD_FACTOR ?= "1.0"  # Factor to multiply the rootfs size by to account for overhead. Default of yocto is 1.3.
+# IMAGE_ROOTFS_SIZE ?= "204800"   # Minimum size of the rootfs in KB
+# IMAGE_ROOTFS_MAXSIZE = "2097152"# Maximum size of the rootfs in KB
+
+# USB WIFI Package
 IMAGE_INSTALL:append = " \
-    rtl8821au \
+    kernel-module-rtl8821au \
     linux-firmware \
-    dhcpcd \
     iw \
     wpa-supplicant \
     wireless-regdb-static \
-"
-KERNEL_MODULE_AUTOLOAD:append = " \
-    8821au  \
+    openssh \
     "
 
-IMAGE_INSTALL:append = "custom-banner"
+# Open SSH
+IMAGE_INSTALL:append = " \
+    openssh-sshd \
+    openssh-sftp-server \
+    openssh-keygen \
+    dhcpcd \
+    iproute2 \
+    iputils \
+    bash \
+    tar \
+    xz \
+    procps \
+    coreutils \
+    curl \
+    libgcc \
+    libstdc++ \
+    libatomic \
+    "
+
+# I2C 
+IMAGE_INSTALL:append = " \
+    packagegroup-core-buildessential \ 
+    i2c-tools \
+    nano \
+    "
+
+KERNEL_MODULE_AUTOLOAD:append = " \
+    rtl8821au \
+    "
